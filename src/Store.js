@@ -5,11 +5,10 @@ const user = createSlice({
     initialState: "",
     reducers: {
         add: (state, action) => {
-            console.log(action.payload);
             return action.payload;
         },
         remove: (state, action) => {
-
+            
         }
     }
 });
