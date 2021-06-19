@@ -12,29 +12,32 @@ const Container = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-shadow: 0 0 .5rem #333;
 `;
 
 const Time = styled.div`
-    font-size: 6rem;
+    font-size: 7rem;
     margin-top: -2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 `;
 
 const NameBox = styled.div`
+    display: ${props => props.isUser ? "none" : "block"};
     font-size: 1.2rem;
     text-align: center;
     form{
         input{
             opacity: .6;
-            margin-top: 1rem;
+            margin-top: .5rem;
             border: 0px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #fff;
             background: none;
             padding: .5rem 1rem;
-            color: #ebebeb;
             font-size: 1.2rem;
             width: 50%;
             text-align: center;
+            color: #fff;
+            text-shadow: 0 0 .5rem #333;
             &:focus{
                 outline: none;
             }
@@ -44,11 +47,11 @@ const NameBox = styled.div`
 
 const GreetMessage = styled.p`
     font-size: 1.2rem;
-    display: none;
+    display: ${props => props.isUser ? "block" : "none"};
 `
 
 
-const Greeting = ({state, addName}) => {
+const Greeting = ({userName, addName}) => {
 
     const [name, setName] = useState("");
 
@@ -60,21 +63,20 @@ const Greeting = ({state, addName}) => {
         e.preventDefault();
         addName(name);
         setName("");
-        console.log(state);
     }
 
     return(
         <Container>
             <Time><Moment interval={1000} format="HH:mm" /></Time>
-            <NameBox>What's your name?<form onSubmit={onSubmit}><input type="text" value={name} onChange={onChange} /></form></NameBox>
-            <GreetMessage>Good to see you, Buddy</GreetMessage>
+            <NameBox isUser={userName}>What's your name?<form onSubmit={onSubmit}><input type="text" value={name} onChange={onChange} /></form></NameBox>
+            <GreetMessage isUser={userName}>Good to see you, {userName}</GreetMessage>
         </Container>
     );
 }
 
 const mapStateToProps = (state) => {
     return {
-        name: state
+        userName: state
     }
 }
 

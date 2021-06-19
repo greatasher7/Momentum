@@ -2,11 +2,11 @@ import {configureStore, createSlice} from "@reduxjs/toolkit";
 
 const user = createSlice({
     name: "userReducer",
-    initialState: [],
+    initialState: "",
     reducers: {
         add: (state, action) => {
-            state.push({text: action.payload})
             console.log(action.payload);
+            return action.payload;
         },
         remove: (state, action) => {
 

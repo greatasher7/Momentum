@@ -37,11 +37,10 @@ const Home =  () => {
     
   const getUnsplash = async () => {
     try {
-      const {data: {results}} = await axios.get('https://api.unsplash.com/search/photos/?page=1&query=nature_wallpaper_1920_1080&client_id=tkiwMlXWnMrC1jPXEXw3XZr81WUcGPCbZNXT7KKxrLE');
+      const {data: {results}} = await axios.get('https://api.unsplash.com/search/photos/?page=1&query=nature_background_1920_1080&client_id=tkiwMlXWnMrC1jPXEXw3XZr81WUcGPCbZNXT7KKxrLE');
       const ramdomNum = Math.round(Math.random() * 9);
       const ranImg = results[ramdomNum]
       setBgImg(ranImg);
-      console.log(bgImg, "state");
     }catch (error) {
       console.error(error);
     }
