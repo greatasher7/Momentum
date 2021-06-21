@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Greeting from "Components/Greeting";
+import Weather from "Components/Weather";
 
 const Bg = styled.div`
   width: 100%;
@@ -55,6 +56,7 @@ const Home =  () => {
       <Bg url={!bgImg ? "" : bgImg.urls.full ? bgImg.urls.full : ""}><p>{!bgImg ? "" : bgImg.description ? bgImg.description : ""}</p></Bg>
       <Container>
         <Greeting />
+        <Weather />
       </Container>
     </>  
   );

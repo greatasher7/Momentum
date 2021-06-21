@@ -21,7 +21,7 @@ const Time = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-const NameBox = styled.div`
+const NameBox = styled.h1`
     display: ${props => props.isUser ? "none" : "block"};
     font-size: 1.2rem;
     text-align: center;
@@ -45,7 +45,7 @@ const NameBox = styled.div`
     }
 `;
 
-const GreetMessage = styled.p`
+const GreetMessage = styled.h1`
     font-size: 1.2rem;
     display: ${props => props.isUser ? "block" : "none"};
 `
@@ -76,7 +76,7 @@ const Greeting = ({userName, addName}) => {
 
 const mapStateToProps = (state) => {
     return {
-        userName: state
+        userName: state.nameReducer.name,
     }
 }
 
