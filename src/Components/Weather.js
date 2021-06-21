@@ -2,24 +2,55 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBolt, faCloud, faSun, faUmbrella, faCloudSun, faMoon, faCloudShowersHeavy, faSnowflake } from '@fortawesome/free-solid-svg-icons'
+import { faBolt, faCloud, faSun, faUmbrella, faCloudShowersHeavy, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 
 
 const Container = styled.section`
-
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 15rem;
+    align-content: flex-start;
 `;
 
 const WeatherImg = styled.span`
+    font-size: 1.2rem;
+    width: 12%;
 
 `;
 
 const Temperature = styled.span`
-
+    font-size: 1rem;
+    width: 80%;
+    display: flex;
+    align-items: center;
 `;
 
 const City = styled.span`
-
+    width: 100%;
+    margin-top: .3rem;
+    font-size: .8rem;
 `;
+
+const filterWeather = (weather) => {
+    console.log("weather", weather);
+    switch (weather){
+        case "Clear":
+            return faSun;
+        case "Clouds":
+            return faCloud;
+        case "Drizzle":
+            return faCloudShowersHeavy;
+        case "Rain":
+            return faUmbrella;
+        case "Thunderstorm":
+            return faBolt;
+        case "Snow":
+            return faSnowflake;
+        default:
+            return "";
+    }
+};
 
 const Weather = () => {
 
@@ -43,17 +74,9 @@ const Weather = () => {
 
     return(
         <Container>
-            <WeatherImg weather={weatherData ? weatherData.weather[0].main : ""}><FontAwesomeIcon icon={faSun} /></WeatherImg>
-            <Temperature>{weatherData ? Math.round(Number(weatherData.main.temp)*10)/10 : ""}</Temperature>
-            <City>Suwon</City>
-            <FontAwesomeIcon icon={faSun}>clear sky</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faMoon}>clear sky</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faCloudSun}>few clouds</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faCloud}>scattered clouds, broken clouds</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faCloudShowersHeavy}>shower rain</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faUmbrella}>rain</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faBolt}>thunderstorm</FontAwesomeIcon>
-            <FontAwesomeIcon icon={faSnowflake}>snow</FontAwesomeIcon>
+            <WeatherImg weather={weatherData ? weatherData.weather[0].main : ""}><FontAwesomeIcon icon={filterWeather(weatherData.weather[0].main)} /></WeatherImg>
+            <Temperature>{weatherData ? Math.round(Number(weatherData.main.temp)*10)/10 : ""}°</Temperature>
+            <City>Suwon, Korea</City>
         </Container>
     );
 }

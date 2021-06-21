@@ -23,23 +23,29 @@ const Time = styled.div`
 
 const NameBox = styled.h1`
     display: ${props => props.isUser ? "none" : "block"};
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-align: center;
     form{
         input{
-            opacity: .6;
             margin-top: .5rem;
             border: 0px;
             border-bottom: 1px solid #fff;
             background: none;
+            margin-top: -1rem;
             padding: .5rem 1rem;
-            font-size: 1.2rem;
-            width: 50%;
+            font-size: 1.3rem;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 .5rem #333;
+            text-shadow: 0 0 .2rem #333;
+            &::placeholder{
+                color: #fff;
+            }
             &:focus{
                 outline: none;
+                &::placeholder{
+                    color: transparent;
+                    text-shadow: none;
+                }
             }
         }
     }
@@ -68,7 +74,7 @@ const Greeting = ({userName, addName}) => {
     return(
         <Container>
             <Time><Moment interval={1000} format="HH:mm" /></Time>
-            <NameBox isUser={userName}>What's your name?<form onSubmit={onSubmit}><input type="text" value={name} onChange={onChange} /></form></NameBox>
+            <NameBox isUser={userName}><form onSubmit={onSubmit}><input type="text" value={name} placeholder="What's your name?" onChange={onChange} /></form></NameBox>
             <GreetMessage isUser={userName}>Good to see you, {userName}</GreetMessage>
         </Container>
     );
