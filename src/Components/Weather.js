@@ -54,16 +54,14 @@ const filterWeather = (weather) => {
 const Weather = () => {
 
     const [weatherData, setWeatherData] = useState();
+    const [get]
 
     const getWeather = async () => {
         try{
             let latitude = "";
             let longitude = "";
-            navigator.geolocation.getCurrentPosition(({coords}) => {
-                console.log(coords.latitude);
-                latitude = String(coords.latitude);
-                longitude = String(coords.longitude);
-                console.log(latitude);
+            await navigator.geolocation.getCurrentPosition(({coords}) => {
+            
             });
             console.log("lat", latitude);
             const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=b17f3e894d8bf77f4e9b87e1a0ba390f`);
