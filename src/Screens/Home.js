@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Greeting from "Components/Greeting";
 import Weather from "Components/Weather";
+import Todos from "Components/Todos";
 
 const Bg = styled.div`
   width: 100%;
@@ -29,6 +30,8 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  overflow: hidden;
+  position: relative;
 `;
 
 
@@ -57,6 +60,7 @@ const Home =  () => {
       <Container>
         <Greeting />
         <Weather />
+        <Todos />
       </Container>
     </>  
   );

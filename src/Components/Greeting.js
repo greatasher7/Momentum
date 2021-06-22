@@ -2,8 +2,8 @@ import {useState} from "react";
 import styled from "styled-components";
 import {connect} from "react-redux"
 import Moment from 'react-moment';
-import { add } from "Store";
-
+import moment from 'moment';
+import { addName, removeName } from "Store";
 
 const Container = styled.section`
     grid-column: 2/3;
@@ -56,39 +56,59 @@ const GreetMessage = styled.h1`
     display: ${props => props.isUser ? "block" : "none"};
 `
 
+const Rename = styled.p`
+    display: ${props => props.isUser ? "block" : "none"};
+    margin-top: 1rem;
+    opacity: .5;
+    padding: .2rem 0;
+    border-bottom: 2px solid #ccc;
+    cursor: pointer;
+`;
 
-const Greeting = ({userName, addName}) => {
+const Greeting = ({ userName, addName, removeName }) => {
 
     const [name, setName] = useState("");
+    const nowHour = moment().format("HH");
 
     const onChange = (e) => {
         setName(e.target.value);
     }
-    
+
     const onSubmit = (e) => {
         e.preventDefault();
         addName(name);
         setName("");
     }
 
+    const rename = () => {
+        removeName();
+    }
+
     return(
         <Container>
             <Time><Moment interval={1000} format="HH:mm" /></Time>
             <NameBox isUser={userName}><form onSubmit={onSubmit}><input type="text" value={name} placeholder="What's your name?" onChange={onChange} /></form></NameBox>
-            <GreetMessage isUser={userName}>Good to see you, {userName}</GreetMessage>
+            <GreetMessage isUser={userName}>{
+                nowHour >= 18 && nowHour < 22 ?
+                "Good Evening" : nowHour >= 21 || nowHour < 6 ?
+                "Good Night" : nowHour >= 6 && nowHour < 12 ?
+                "Good Morning" : "Good Afternoon"
+            }, {userName}</GreetMessage>
+            <Rename isUser={userName} onClick={rename}>Rename</Rename>
         </Container>
     );
 }
 
 const mapStateToProps = (state) => {
     return {
-        userName: state.nameReducer.name,
+        userName: state.Reducer.name,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addName : (text) => dispatch(add(text))
+        addName : (text) => dispatch(addName(text)),
+        removeName : () => dispatch(removeName())
     }
 }
 

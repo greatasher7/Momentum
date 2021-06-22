@@ -16,7 +16,7 @@ const Container = styled.section`
 const WeatherImg = styled.span`
     font-size: 1.2rem;
     width: 12%;
-
+    margin-right: .2rem;
 `;
 
 const Temperature = styled.span`
@@ -33,7 +33,6 @@ const City = styled.span`
 `;
 
 const filterWeather = (weather) => {
-    console.log("weather", weather);
     switch (weather){
         case "Clear":
             return faSun;
@@ -59,10 +58,9 @@ const Weather = () => {
     const getWeather = async () => {
         try{
             const {data} = await axios.get('https://api.openweathermap.org/data/2.5/weather?q=Seoul&units=metric&appid=b17f3e894d8bf77f4e9b87e1a0ba390f');
-            console.log(data);
             setWeatherData(data);
-        } catch{
-
+        } catch (e){
+            console.log(e)
         } finally{
 
         }
@@ -74,7 +72,7 @@ const Weather = () => {
 
     return(
         <Container>
-            <WeatherImg weather={weatherData ? weatherData.weather[0].main : ""}><FontAwesomeIcon icon={filterWeather(weatherData.weather[0].main)} /></WeatherImg>
+            <WeatherImg weather={weatherData ? weatherData.weather[0].main : ""}><FontAwesomeIcon icon={weatherData ? filterWeather(weatherData.weather[0].main) : ""} /></WeatherImg>
             <Temperature>{weatherData ? Math.round(Number(weatherData.main.temp)*10)/10 : ""}°</Temperature>
             <City>Suwon, Korea</City>
         </Container>

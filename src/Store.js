@@ -4,35 +4,44 @@ import { persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 import thunk from 'redux-thunk';
 
-const user = createSlice({
+const reducer = createSlice({
     name: "userReducer",
-    initialState: {name: ""},
+    initialState: {
+        name: "", 
+        todos: [],
+    },
     reducers: {
-        add: (state, action) => {
-            return {name: action.payload};
+        addName: (state, action) => {
+            return {...state, name: action.payload};
         },
-        remove: (state, action) => {
-            
-        }
+        removeName: () => {
+            return {name: "", todos: []}
+        },
+        addTodo: (state, action) => {   
+            return {...state, todos: [...state.todos, {id: Date.now(), text: action.payload}]}
+        },
+        removeTodo: (state, action) => {
+            return {...state, todos: state.todos.filter(todo => todo.id !== parseInt(action.payload))}
+        },
     }
 });
 
 const reducers = combineReducers({
-    nameReducer: user.reducer,
-})
+    Reducer: reducer.reducer,
+});
 
 const persistConfig = {
     key: "root",
     storage
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 const userStore = configureStore({ 
     reducer: persistedReducer,
     middleware: [thunk],
 });
 
-export const { add, remove } = user.actions;
+export const { addName, removeName, addTodo, removeTodo } = reducer.actions;
 
 export default userStore;
