@@ -54,7 +54,6 @@ const filterWeather = (weather) => {
 const Weather = () => {
 
     const [weatherData, setWeatherData] = useState();
-    const [get]
 
     const getWeather = async () => {
         try{
