@@ -90,9 +90,9 @@ const Greeting = ({ userName, addName, removeName }) => {
             <NameBox isUser={userName}><form onSubmit={onSubmit}><input type="text" value={name} placeholder="What's your name?" onChange={onChange} /></form></NameBox>
             <GreetMessage isUser={userName}>{
                 nowHour >= 18 && nowHour < 22 ?
-                "Good Evening" : nowHour >= 21 || nowHour < 6 ?
-                "Good Night" : nowHour >= 6 && nowHour < 12 ?
-                "Good Morning" : "Good Afternoon"
+                "Good evening" : nowHour >= 21 || nowHour < 6 ?
+                "Good night" : nowHour >= 6 && nowHour < 12 ?
+                "Good morning" : "Good afternoon"
             }, {userName}</GreetMessage>
             <Rename isUser={userName} onClick={rename}>Rename</Rename>
         </Container>
