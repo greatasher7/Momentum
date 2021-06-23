@@ -54,25 +54,29 @@ const filterWeather = (weather) => {
 const Weather = () => {
 
     const [weatherData, setWeatherData] = useState();
+    const [locationData, setLocationData] = useState();
+
+    const getLocation = () => {
+        navigator.geolocation.getCurrentPosition( ({coords}) => {
+            let {latitude, longitude} = coords;
+            setLocationData({lat: String(latitude), lon: String(longitude)});
+        });
+    }
 
     const getWeather = async () => {
-        try{
-            let latitude = "";
-            let longitude = "";
-            await navigator.geolocation.getCurrentPosition(({coords}) => {
-            
-            });
-            console.log("lat", latitude);
-            const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=b17f3e894d8bf77f4e9b87e1a0ba390f`);
-            setWeatherData(data);
-        } catch (e){
-            console.log(e)
-        } finally{
-
+        if(locationData){
+            console.log("true!");
+            try{
+                const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${"37.2546"}&lon=${"120.4564"}&units=metric&appid=b17f3e894d8bf77f4e9b87e1a0ba390f`);
+                setWeatherData(data);
+            } catch (e){
+                console.log(e)
+            }
         }
     }
 
     useEffect(()=>{
+        getLocation();
         getWeather();
     }, []);
 
