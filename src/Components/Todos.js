@@ -30,7 +30,7 @@ const Tab = styled.span`
     position: absolute;
     right: 100%;
     top: 2rem;
-    background-color: rgba(224, 247, 64, .5);
+    background-color: rgba(116, 45, 221, .5);
     cursor: pointer;
     border-radius: 5px 0 0 5px;
 `;
